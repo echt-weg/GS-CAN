@@ -1,0 +1,161 @@
+<html>
+    <head>
+		<link rel="manifest" href="manifest.json">
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="gs-can.js"></script>
+    	<script type="text/javascript" src="gauge.js"></script>
+		<title>GS-CAN: Cockpit-View</title>
+    </head>
+	
+<style>
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+button span:before {
+  content: '\00ab';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 20px;
+  transition: 0.5s;
+}
+
+button:hover span {
+  padding-left: 25px;
+}
+
+button:hover span:before {
+  opacity: 1;
+  left: 0;
+}
+body {
+  background-color: black;
+  color:white;
+}
+
+.main {
+   opacity: 0.1;
+   padding-top:10px;
+   padding-bottom:10px;
+   margin:10px;
+   float:left;
+   width:350px;
+   height:230px;
+   border-bottom-left-radius: 30px;
+   border-bottom-right-radius: 30px;
+   border-top-left-radius: 30px;
+   border-top-right-radius: 30px;
+   background-color:#A9A9A9;
+   color:black;
+}
+
+.small {
+   margin:10px;
+   float:left;
+   width:350px;
+   height:95px;
+   border-bottom-left-radius: 30px;
+   border-bottom-right-radius: 30px;
+   border-top-left-radius: 30px;
+   border-top-right-radius: 30px;
+   background-color:#A9A9A9;
+   color:black;
+}
+
+.graph {
+   display:none;
+   width:350px;
+}
+
+.desc {
+   text-align:center;
+   font-size:17pt;
+}
+
+.val {
+   text-align:center;
+   font-size:21pt;
+}
+
+.txtonly {
+   text-align:center;
+   font-size:40pt;
+}
+
+
+</style>
+<body onload="connectws()">
+
+<div style="display:table;">
+<div style="display:table-row;">
+	<div style="display:table-cell;"><a href="index.htm"><button><span>Startseite</span></button></a></div>
+	<div style="display:table-cell;"><button style="background-color: #2e6b31;">Cockpit-View</button></div>
+	<div style="display:table-cell;"><button id="loading" style="background-color: red;display:none;">Verbunden</button></div>
+</div>
+</div>
+
+<div class="main" id="532">
+<div class="title" id="532t"></div>
+<div class="desc" id="532d"></div>
+<canvas class="graph" id="532g"></canvas><div class="val" id="532v"></div>
+</div>
+
+<div class="main" id="536">
+<div class="title" id="536t"></div>
+<div class="desc" id="536d"></div>
+<canvas class="graph" id="536g"></canvas><div class="val" id="536v"></div>
+</div>
+
+<div class="main" id="548">
+<div class="title" id="548t"></div>
+<div class="desc" id="548d"></div>
+<canvas class="graph" id="548g"></canvas><div class="val" id="548v"></div>
+</div>
+
+<div class="main" id="314">
+<div class="title" id="314t"></div>
+<div class="desc" id="314d"></div>
+<canvas class="graph" id="314g"></canvas><div class="val" id="314v"></div>
+</div>
+
+<div class="main" id="315">
+<div class="title" id="315t"></div>
+<div class="desc" id="315d"></div>
+<canvas class="graph" id="315g"></canvas><div class="val" id="315v"></div>
+</div>
+
+<div class="main" id="500">
+<div class="title" id="500t"></div>
+<div class="desc" id="500d"></div>
+<canvas class="graph" id="500g"></canvas><div class="val" id="500v"></div>
+</div>
+
+<div class="main small" id="316">
+<div class="title" id="316t"></div>
+<div class="desc" id="316d"></div>
+<canvas class="graph" id="316g"></canvas><div class="val txtonly" id="316v"></div>
+</div>
+
+<div class="main small" id="319">
+<div class="title" id="319t"></div>
+<div class="desc" id="319d"></div>
+<canvas class="graph" id="319g"></canvas><div class="val txtonly" id="319v"></div>
+</div>
+
+<script type="text/javascript" src="cockpit.js"></script>
+</body>
+</html>

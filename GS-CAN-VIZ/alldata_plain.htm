@@ -1,0 +1,656 @@
+<html>
+    <head>
+		<link rel="manifest" href="manifest.json">
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="gs-can.js"></script>
+		<title>GS-CAN: Alle Daten</title>
+    </head>
+	
+<style>
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+button span:before {
+  content: '\00ab';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 20px;
+  transition: 0.5s;
+}
+
+button:hover span {
+  padding-left: 25px;
+}
+
+button:hover span:before {
+  opacity: 1;
+  left: 0;
+}
+
+body {
+  background-color: black;
+  color:white;
+}
+
+.main {
+   display:table-row;
+   border-top-left-radius: 30px;
+   border-top-right-radius: 30px;
+   background-color:#A9A9A9;
+   color:black;
+}
+
+.graph {
+   display:none;
+   text-align:center;
+   font-size:17pt;
+}
+
+.desc {
+   display:table-cell;
+   text-align:center;
+   font-size:17pt;
+}
+
+.val {
+   display:table-cell;
+   text-align:center;
+   font-size:21pt;
+}
+
+
+
+</style>
+<body onload="connectws()">
+
+<div style="display:table;">
+<div style="display:table-row;">
+	<div style="display:table-cell;"><a href="index.htm"><button><span>Startseite</span></button></a></div>
+	<div style="display:table-cell;"><button style="background-color: #2e6b31;">Alle Daten</button></div>
+	<div style="display:table-cell;"><button id="loading" style="background-color: red;display:none;">Verbunden</button></div>
+</div>
+</div>
+
+<div class="main" id="300">
+<div class="title" id="300t"></div>
+<div class="desc" id="300d"></div>
+<canvas class="graph" id="300g"></canvas><div class="val" id="300v"></div>
+</div>
+
+<div class="main" id="301">
+<div class="title" id="301t"></div>
+<div class="desc" id="301d"></div>
+<canvas class="graph" id="301g"></canvas><div class="val" id="301v"></div>
+</div>
+
+<div class="main" id="302">
+<div class="title" id="302t"></div>
+<div class="desc" id="302d"></div>
+<canvas class="graph" id="302g"></canvas><div class="val" id="302v"></div>
+</div>
+
+<div class="main" id="303">
+<div class="title" id="303t"></div>
+<div class="desc" id="303d"></div>
+<canvas class="graph" id="303g"></canvas><div class="val" id="303v"></div>
+</div>
+
+<div class="main" id="304">
+<div class="title" id="304t"></div>
+<div class="desc" id="304d"></div>
+<canvas class="graph" id="304g"></canvas><div class="val" id="304v"></div>
+</div>
+
+<div class="main" id="305">
+<div class="title" id="305t"></div>
+<div class="desc" id="305d"></div>
+<canvas class="graph" id="305g"></canvas><div class="val" id="305v"></div>
+</div>
+
+<div class="main" id="311">
+<div class="title" id="311t"></div>
+<div class="desc" id="311d"></div>
+<canvas class="graph" id="311g"></canvas><div class="val" id="311v"></div>
+</div>
+
+<div class="main" id="312">
+<div class="title" id="312t"></div>
+<div class="desc" id="312d"></div>
+<canvas class="graph" id="312g"></canvas><div class="val" id="312v"></div>
+</div>
+
+<div class="main" id="314">
+<div class="title" id="314t"></div>
+<div class="desc" id="314d"></div>
+<canvas class="graph" id="314g"></canvas><div class="val" id="314v"></div>
+</div>
+
+<div class="main" id="315">
+<div class="title" id="315t"></div>
+<div class="desc" id="315d"></div>
+<canvas class="graph" id="315g"></canvas><div class="val" id="315v"></div>
+</div>
+
+<div class="main" id="316">
+<div class="title" id="316t"></div>
+<div class="desc" id="316d"></div>
+<canvas class="graph" id="316g"></canvas><div class="val" id="316v"></div>
+</div>
+
+<div class="main" id="319">
+<div class="title" id="319t"></div>
+<div class="desc" id="319d"></div>
+<canvas class="graph" id="319g"></canvas><div class="val" id="319v"></div>
+</div>
+
+<div class="main" id="320">
+<div class="title" id="320t"></div>
+<div class="desc" id="320d"></div>
+<canvas class="graph" id="320g"></canvas><div class="val" id="320v"></div>
+</div>
+
+<div class="main" id="321">
+<div class="title" id="321t"></div>
+<div class="desc" id="321d"></div>
+<canvas class="graph" id="321g"></canvas><div class="val" id="321v"></div>
+</div>
+
+<div class="main" id="322">
+<div class="title" id="322t"></div>
+<div class="desc" id="322d"></div>
+<canvas class="graph" id="322g"></canvas><div class="val" id="322v"></div>
+</div>
+
+<div class="main" id="325">
+<div class="title" id="325t"></div>
+<div class="desc" id="325d"></div>
+<canvas class="graph" id="325g"></canvas><div class="val" id="325v"></div>
+</div>
+
+<div class="main" id="326">
+<div class="title" id="326t"></div>
+<div class="desc" id="326d"></div>
+<canvas class="graph" id="326g"></canvas><div class="val" id="326v"></div>
+</div>
+
+<div class="main" id="327">
+<div class="title" id="327t"></div>
+<div class="desc" id="327d"></div>
+<canvas class="graph" id="327g"></canvas><div class="val" id="327v"></div>
+</div>
+
+<div class="main" id="333">
+<div class="title" id="333t"></div>
+<div class="desc" id="333d"></div>
+<canvas class="graph" id="333g"></canvas><div class="val" id="333v"></div>
+</div>
+
+<div class="main" id="334">
+<div class="title" id="334t"></div>
+<div class="desc" id="334d"></div>
+<canvas class="graph" id="334g"></canvas><div class="val" id="334v"></div>
+</div>
+
+<div class="main" id="335">
+<div class="title" id="335t"></div>
+<div class="desc" id="335d"></div>
+<canvas class="graph" id="335g"></canvas><div class="val" id="335v"></div>
+</div>
+
+<div class="main" id="402">
+<div class="title" id="402t"></div>
+<div class="desc" id="402d"></div>
+<canvas class="graph" id="402g"></canvas><div class="val" id="402v"></div>
+</div>
+
+<div class="main" id="405">
+<div class="title" id="405t"></div>
+<div class="desc" id="405d"></div>
+<canvas class="graph" id="405g"></canvas><div class="val" id="405v"></div>
+</div>
+
+<div class="main" id="409">
+<div class="title" id="409t"></div>
+<div class="desc" id="409d"></div>
+<canvas class="graph" id="409g"></canvas><div class="val" id="409v"></div>
+</div>
+
+
+<div class="main" id="410">
+<div class="title" id="410t"></div>
+<div class="desc" id="410d"></div>
+<canvas class="graph" id="410g"></canvas><div class="val" id="410v"></div>
+</div>
+
+
+<div class="main" id="414">
+<div class="title" id="414t"></div>
+<div class="desc" id="414d"></div>
+<canvas class="graph" id="414g"></canvas><div class="val" id="414v"></div>
+</div>
+
+
+<div class="main" id="430">
+<div class="title" id="430t"></div>
+<div class="desc" id="430d"></div>
+<canvas class="graph" id="430g"></canvas><div class="val" id="430v"></div>
+</div>
+
+
+<div class="main" id="443">
+<div class="title" id="443t"></div>
+<div class="desc" id="443d"></div>
+<canvas class="graph" id="443g"></canvas><div class="val" id="443v"></div>
+</div>
+
+<div class="main" id="500">
+<div class="title" id="500t"></div>
+<div class="desc" id="500d"></div>
+<canvas class="graph" id="500g"></canvas><div class="val" id="500v"></div>
+</div>
+
+<div class="main" id="501">
+<div class="title" id="501t"></div>
+<div class="desc" id="501d"></div>
+<canvas class="graph" id="501g"></canvas><div class="val" id="501v"></div>
+</div>
+
+
+<div class="main" id="508">
+<div class="title" id="508t"></div>
+<div class="desc" id="508d"></div>
+<canvas class="graph" id="508g"></canvas><div class="val" id="508v"></div>
+</div>
+
+
+<div class="main" id="524">
+<div class="title" id="524t"></div>
+<div class="desc" id="524d"></div>
+<canvas class="graph" id="524g"></canvas><div class="val" id="524v"></div>
+</div>
+
+
+<div class="main" id="528">
+<div class="title" id="528t"></div>
+<div class="desc" id="528d"></div>
+<canvas class="graph" id="528g"></canvas><div class="val" id="528v"></div>
+</div>
+
+
+<div class="main" id="529">
+<div class="title" id="529t"></div>
+<div class="desc" id="529d"></div>
+<canvas class="graph" id="529g"></canvas><div class="val" id="529v"></div>
+</div>
+
+
+<div class="main" id="532">
+<div class="title" id="532t"></div>
+<div class="desc" id="532d"></div>
+<canvas class="graph" id="532g"></canvas><div class="val" id="532v"></div>
+</div>
+
+
+<div class="main" id="533">
+<div class="title" id="533t"></div>
+<div class="desc" id="533d"></div>
+<canvas class="graph" id="533g"></canvas><div class="val" id="533v"></div>
+</div>
+
+
+<div class="main" id="536">
+<div class="title" id="536t"></div>
+<div class="desc" id="536d"></div>
+<canvas class="graph" id="536g"></canvas><div class="val" id="536v"></div>
+</div>
+
+
+<div class="main" id="537">
+<div class="title" id="537t"></div>
+<div class="desc" id="537d"></div>
+<canvas class="graph" id="537g"></canvas><div class="val" id="537v"></div>
+</div>
+
+
+<div class="main" id="548">
+<div class="title" id="548t"></div>
+<div class="desc" id="548d"></div>
+<canvas class="graph" id="548g"></canvas><div class="val" id="548v"></div>
+</div>
+
+<div class="main" id="549">
+<div class="title" id="549t"></div>
+<div class="desc" id="549d"></div>
+<canvas class="graph" id="549g"></canvas><div class="val" id="549v"></div>
+</div>
+
+<div class="main" id="552">
+<div class="title" id="552t"></div>
+<div class="desc" id="552d"></div>
+<canvas class="graph" id="552g"></canvas><div class="val" id="552v"></div>
+</div>
+
+<div class="main" id="564">
+<div class="title" id="564t"></div>
+<div class="desc" id="564d"></div>
+<canvas class="graph" id="564g"></canvas><div class="val" id="564v"></div>
+</div>
+
+<div class="main" id="654">
+<div class="title" id="654t"></div>
+<div class="desc" id="654d"></div>
+<canvas class="graph" id="654g"></canvas><div class="val" id="654v"></div>
+</div>
+
+<div class="main" id="655">
+<div class="title" id="655t"></div>
+<div class="desc" id="655d"></div>
+<canvas class="graph" id="655g"></canvas><div class="val" id="655v"></div>
+</div>
+
+<div class="main" id="668">
+<div class="title" id="668t"></div>
+<div class="desc" id="668d"></div>
+<canvas class="graph" id="668g"></canvas><div class="val" id="668v"></div>
+</div>
+
+<div class="main" id="669">
+<div class="title" id="669t"></div>
+<div class="desc" id="669d"></div>
+<canvas class="graph" id="669g"></canvas><div class="val" id="669v"></div>
+</div>
+
+<div class="main" id="670">
+<div class="title" id="670t"></div>
+<div class="desc" id="670d"></div>
+<canvas class="graph" id="670g"></canvas><div class="val" id="670v"></div>
+</div>
+
+<div class="main" id="671">
+<div class="title" id="671t"></div>
+<div class="desc" id="671d"></div>
+<canvas class="graph" id="671g"></canvas><div class="val" id="671v"></div>
+</div>
+
+<div class="main" id="684">
+<div class="title" id="684t"></div>
+<div class="desc" id="684d"></div>
+<canvas class="graph" id="684g"></canvas><div class="val" id="684v"></div>
+</div>
+
+<div class="main" id="685">
+<div class="title" id="685t"></div>
+<div class="desc" id="685d"></div>
+<canvas class="graph" id="685g"></canvas><div class="val" id="685v"></div>
+</div>
+
+<div class="main" id="692">
+<div class="title" id="692t"></div>
+<div class="desc" id="692d"></div>
+<canvas class="graph" id="692g"></canvas><div class="val" id="692v"></div>
+</div>
+
+<div class="main" id="700">
+<div class="title" id="700t"></div>
+<div class="desc" id="700d"></div>
+<canvas class="graph" id="700g"></canvas><div class="val" id="700v"></div>
+</div>
+
+<div class="main" id="712">
+<div class="title" id="712t"></div>
+<div class="desc" id="712d"></div>
+<canvas class="graph" id="712g"></canvas><div class="val" id="712v"></div>
+</div>
+
+<div class="main" id="720">
+<div class="title" id="720t"></div>
+<div class="desc" id="720d"></div>
+<canvas class="graph" id="720g"></canvas><div class="val" id="720v"></div>
+</div>
+
+<div class="main" id="721">
+<div class="title" id="721t"></div>
+<div class="desc" id="721d"></div>
+<canvas class="graph" id="721g"></canvas><div class="val" id="721v"></div>
+</div>
+
+<div class="main" id="722">
+<div class="title" id="722t"></div>
+<div class="desc" id="722d"></div>
+<canvas class="graph" id="722g"></canvas><div class="val" id="722v"></div>
+</div>
+
+<div class="main" id="723">
+<div class="title" id="723t"></div>
+<div class="desc" id="723d"></div>
+<canvas class="graph" id="723g"></canvas><div class="val" id="723v"></div>
+</div>
+
+<div class="main" id="724">
+<div class="title" id="724t"></div>
+<div class="desc" id="724d"></div>
+<canvas class="graph" id="724g"></canvas><div class="val" id="724v"></div>
+</div>
+
+<div class="main" id="725">
+<div class="title" id="725t"></div>
+<div class="desc" id="725d"></div>
+<canvas class="graph" id="725g"></canvas><div class="val" id="725v"></div>
+</div>
+
+<div class="main" id="726">
+<div class="title" id="726t"></div>
+<div class="desc" id="726d"></div>
+<canvas class="graph" id="726g"></canvas><div class="val" id="726v"></div>
+</div>
+
+<div class="main" id="727">
+<div class="title" id="727t"></div>
+<div class="desc" id="727d"></div>
+<canvas class="graph" id="727g"></canvas><div class="val" id="727v"></div>
+</div>
+
+<div class="main" id="920">
+<div class="title" id="920t"></div>
+<div class="desc" id="920d"></div>
+<canvas class="graph" id="920g"></canvas><div class="val" id="920v"></div>
+</div>
+
+<div class="main" id="921">
+<div class="title" id="921t"></div>
+<div class="desc" id="921d"></div>
+<canvas class="graph" id="921g"></canvas><div class="val" id="921v"></div>
+</div>
+
+<div class="main" id="922">
+<div class="title" id="922t"></div>
+<div class="desc" id="922d"></div>
+<canvas class="graph" id="922g"></canvas><div class="val" id="922v"></div>
+</div>
+
+<div class="main" id="923">
+<div class="title" id="923t"></div>
+<div class="desc" id="923d"></div>
+<canvas class="graph" id="923g"></canvas><div class="val" id="923v"></div>
+</div>
+
+<div class="main" id="924">
+<div class="title" id="924t"></div>
+<div class="desc" id="924d"></div>
+<canvas class="graph" id="924g"></canvas><div class="val" id="924v"></div>
+</div>
+
+<div class="main" id="930">
+<div class="title" id="930t"></div>
+<div class="desc" id="930d"></div>
+<canvas class="graph" id="930g"></canvas><div class="val" id="930v"></div>
+</div>
+
+<div class="main" id="931">
+<div class="title" id="931t"></div>
+<div class="desc" id="931d"></div>
+<canvas class="graph" id="931g"></canvas><div class="val" id="931v"></div>
+</div>
+
+<div class="main" id="1036">
+<div class="title" id="1036t"></div>
+<div class="desc" id="1036d"></div>
+<canvas class="graph" id="1036g"></canvas><div class="val" id="1036v"></div>
+</div>
+
+<div class="main" id="1037">
+<div class="title" id="1037t"></div>
+<div class="desc" id="1037d"></div>
+<canvas class="graph" id="1037g"></canvas><div class="val" id="1037v"></div>
+</div>
+
+<div class="main" id="1038">
+<div class="title" id="1038t"></div>
+<div class="desc" id="1038d"></div>
+<canvas class="graph" id="1038g"></canvas><div class="val" id="1038v"></div>
+</div>
+
+<div class="main" id="1039">
+<div class="title" id="1039t"></div>
+<div class="desc" id="1039d"></div>
+<canvas class="graph" id="1039g"></canvas><div class="val" id="1039v"></div>
+</div>
+
+<div class="main" id="1040">
+<div class="title" id="1040t"></div>
+<div class="desc" id="1040d"></div>
+<canvas class="graph" id="1040g"></canvas><div class="val" id="1040v"></div>
+</div>
+
+<div class="main" id="1045">
+<div class="title" id="1045t"></div>
+<div class="desc" id="1045d"></div>
+<canvas class="graph" id="1045g"></canvas><div class="val" id="1045v"></div>
+</div>
+
+<div class="main" id="1046">
+<div class="title" id="1046t"></div>
+<div class="desc" id="1046d"></div>
+<canvas class="graph" id="1046g"></canvas><div class="val" id="1046v"></div>
+</div>
+
+<div class="main" id="1047">
+<div class="title" id="1047t"></div>
+<div class="desc" id="1047d"></div>
+<canvas class="graph" id="1047g"></canvas><div class="val" id="1047v"></div>
+</div>
+
+<div class="main" id="1049">
+<div class="title" id="1049t"></div>
+<div class="desc" id="1049d"></div>
+<canvas class="graph" id="1049g"></canvas><div class="val" id="1049v"></div>
+</div>
+
+<div class="main" id="1050">
+<div class="title" id="1050t"></div>
+<div class="desc" id="1050d"></div>
+<canvas class="graph" id="1050g"></canvas><div class="val" id="1050v"></div>
+</div>
+
+<div class="main" id="1121">
+<div class="title" id="1121t"></div>
+<div class="desc" id="1121d"></div>
+<canvas class="graph" id="1121g"></canvas><div class="val" id="1121v"></div>
+</div>
+
+
+<div class="main" id="1250">
+<div class="title" id="1250t"></div>
+<div class="desc" id="1250d"></div>
+<canvas class="graph" id="1250g"></canvas><div class="val" id="1250v"></div>
+</div>
+
+<div class="main" id="1251">
+<div class="title" id="1251t"></div>
+<div class="desc" id="1251d"></div>
+<canvas class="graph" id="1251g"></canvas><div class="val" id="1251v"></div>
+</div>
+
+<div class="main" id="1500">
+<div class="title" id="1500t"></div>
+<div class="desc" id="1500d"></div>
+<canvas class="graph" id="1500g"></canvas><div class="val" id="1500v"></div>
+</div>
+
+<div class="main" id="1501">
+<div class="title" id="1501t"></div>
+<div class="desc" id="1501d"></div>
+<canvas class="graph" id="1501g"></canvas><div class="val" id="1501v"></div>
+</div>
+
+<div class="main" id="1502">
+<div class="title" id="1502t"></div>
+<div class="desc" id="1502d"></div>
+<canvas class="graph" id="1502g"></canvas><div class="val" id="1502v"></div>
+</div>
+
+<div class="main" id="1503">
+<div class="title" id="1503t"></div>
+<div class="desc" id="1503d"></div>
+<canvas class="graph" id="1503g"></canvas><div class="val" id="1503v"></div>
+</div>
+
+<div class="main" id="1513">
+<div class="title" id="1513t"></div>
+<div class="desc" id="1513d"></div>
+<canvas class="graph" id="1513g"></canvas><div class="val" id="1513v"></div>
+</div>
+
+<div class="main" id="1514">
+<div class="title" id="1514t"></div>
+<div class="desc" id="1514d"></div>
+<canvas class="graph" id="1514g"></canvas><div class="val" id="1514v"></div>
+</div>
+
+<div class="main" id="1515">
+<div class="title" id="1515t"></div>
+<div class="desc" id="1515d"></div>
+<canvas class="graph" id="1515g"></canvas><div class="val" id="1515v"></div>
+</div>
+
+<div class="main" id="1516">
+<div class="title" id="1516t"></div>
+<div class="desc" id="1516d"></div>
+<canvas class="graph" id="1516g"></canvas><div class="val" id="1516v"></div>
+</div>
+
+<div class="main" id="1517">
+<div class="title" id="1517t"></div>
+<div class="desc" id="1517d"></div>
+<canvas class="graph" id="1517g"></canvas><div class="val" id="1517v"></div>
+</div>
+
+<div class="main" id="1519">
+<div class="title" id="1519t"></div>
+<div class="desc" id="1519d"></div>
+<canvas class="graph" id="1519g"></canvas><div class="val" id="1519v"></div>
+</div>
+
+<div class="main" id="1521">
+<div class="title" id="1521t"></div>
+<div class="desc" id="1521d"></div>
+<canvas class="graph" id="1521g"></canvas><div class="val" id="1521v"></div>
+</div>
+
+</body>
+</html>

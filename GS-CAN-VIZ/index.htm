@@ -1,0 +1,116 @@
+<html>
+    <head>
+		<link rel="manifest" href="manifest.json">
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="theme-color" content="#317EFB"/>
+		<link rel="apple-touch-icon" href="icon-180x180.png">
+		<title>GS-CAN</title>
+    </head>
+	
+<style>
+body {
+  background-color: black;
+  color:white;
+}
+.add-button {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+}
+.config {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+button:hover span {
+  padding-right: 25px;
+}
+
+button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+</style>
+
+
+<body>
+<button class="add-button">Add to home screen</button>
+<script>
+let deferredPrompt;
+const addBtn = document.querySelector('.add-button');
+addBtn.style.display = 'none';
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  addBtn.style.display = 'block';
+  addBtn.addEventListener('click', (e) => {
+    addBtn.style.display = 'none';
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        deferredPrompt = null;
+      });
+  });
+});
+</script>
+
+<center>
+<a href="alldata_plain.htm"><button><span>Alle Sensorwerte</span></button></a><br><br>
+<a href="flight_gauges.htm"><button><span>Flugparameter</span></button></a><br><br>
+<a href="engine_gauges.htm"><button><span>Triebwerk</span></button></a><br><br>
+<div class="config" id="config" name="config"></div>
+<br><br>
+<script type="text/javascript" src="gs-can.js"></script>
+<script>
+document.getElementById("config").innerHTML="<b>Konfiguration:</b><br>IP-Adresse: "+ws_hostname+"<br>Protokoll: "+ws_protocol+"<br>Port: "+ws_port+"<br>Sprache: "+language;
+</script>
+<br><br>
+</center>
+
+<script>
+ if (!navigator.serviceWorker.controller) {
+     navigator.serviceWorker.register("sw.js").then(function(reg) {
+         console.log("Service worker has been registered for scope: " + reg.scope);
+     });
+ }
+</script>
+</body>
+</html>
