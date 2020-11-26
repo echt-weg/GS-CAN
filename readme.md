@@ -18,11 +18,11 @@ When using GS-CAN (on a shared bus) you can produce unexpected erros. A misswork
 # Development State
 Sub-Project | Software-State | Hardware-State| Documentation
 -------- | -------- | --------| --------
-GS-CAN-2WIFI   | Beta / Working   | Beta / Working | not yet
-GS-CAN-MULTI   | Early Alpha / Not Working | Alpha / Unknown | not yet
-GS-CAN-WIZ   | Beta / Working   | - | not yet
-GS-CAN-SPEC   | -  | - | not yet
-[GS-CAN-SPEC](GS-CAN-SPEC) 
+[GS-CAN-2WIFI ](GS-CAN-WIFI)   | Beta / Working   | Beta / Working | not yet
+[GS-CAN-MULTI](GS-CAN-MULTI)   | Early Alpha / Not Working | Alpha / Unknown | not yet
+[GS-CAN-VIZ](GS-CAN-VIZ)   | Beta / Working   | - | not yet
+[GS-CAN-SPEC](GS-CAN-SPEC)   | -  | - | not yet
+ 
 
 ## Hardware
 The hardware is based on popular dev-boards. In common all you need for the GS-CAN-2WIFI as well as for the GS-CAN-MULTI is a 2x19pin ESP32-Devoard like a ESP32 NodeMCU-32S and a CAN-Transceiver with a SN65HVD230-Chip (I'm using CJMCU-230-boards). Caution: There are a lot of "Fake-CAN-Transceiver" which will receive data but aren't able to send! Additional to these components you only need some wires, resistors and perhaps a DC-DC-Stepdown like a LM2596-board. The total-costs will be about 8-25 EUR. The layout is simple and you can produce a perfboard on your own. I will publish PCB-Layouts later.
