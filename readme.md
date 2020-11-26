@@ -18,8 +18,8 @@ When using GS-CAN (on a shared bus) you can produce unexpected erros. A misswork
 # Development State
 Sub-Project | Software-State | Hardware-State| Documentation
 -------- | -------- | --------| --------
-[GS-CAN-2WIFI ](GS-CAN-WIFI)   | Beta / Working   | Beta / Working | not yet
-[GS-CAN-MULTI](GS-CAN-MULTI)   | Early Alpha / Not Working | Alpha / Unknown | not yet
+[GS-CAN-2WIFI ](GS-CAN-2WIFI)   | Beta / Working   | Beta / Working | not yet
+[GS-CAN-MULTI](GS-CAN-MULTI)   | Early Alpha / Not Working | Beta / Working | not yet
 [GS-CAN-VIZ](GS-CAN-VIZ)   | Beta / Working   | - | not yet
 [GS-CAN-SPEC](GS-CAN-SPEC)   | -  | - | not yet
  
